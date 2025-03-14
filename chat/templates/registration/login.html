@@ -1,0 +1,35 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h2 class="text-center">Login</h2>
+                    </div>
+                    <div class="card-body">
+                        <form method="post">
+                            {% csrf_token %}
+                            <!-- Username Field -->
+                            <div class="form-group">
+                                <label for="{{ form.username.id_for_label }}">Username</label>
+                                <input type="text" name="username" class="form-control" id="{{ form.username.id_for_label }}" required>
+                            </div>
+                            <!-- Password Field -->
+                            <div class="form-group">
+                                <label for="{{ form.password.id_for_label }}">Password</label>
+                                <input type="password" name="password" class="form-control" id="{{ form.password.id_for_label }}" required>
+                            </div>
+                            <!-- Submit Button -->
+                            <button type="submit" class="btn btn-primary btn-block">Login</button>
+                        </form>
+                        <!-- Registration Link -->
+                        <div class="mt-3 text-center">
+                            <p>Don't have an account? <a href="{% url 'register' %}">Register here</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

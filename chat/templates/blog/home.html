@@ -1,0 +1,51 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Welcome to Fun Blog!</h1>
+    {% for post in posts %}
+        <div class="card mb-4 shadow">
+            <div class="card-body">
+                <!-- Post Title -->
+                <h2 class="card-title">{{ post.title }}</h2>
+
+                <!-- Post Content -->
+                <p class="card-text">{{ post.content }}</p>
+
+                <!-- Post Image -->
+                {% if post.image %}
+                    <div class="text-center">
+                        <img src="{{ post.image.url }}" class="img-fluid rounded mb-3" style="max-width: 100%; height: auto;" alt="Post Image">
+                    </div>
+                {% endif %}
+
+                <!-- Post Video -->
+                {% if post.video %}
+                    <div class="text-center">
+                        <video controls class="img-fluid rounded mb-3" style="max-width: 50%; height: 20%;">
+                            <source src="{{ post.video.url }}" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                {% endif %}
+
+                <!-- Post Metadata -->
+                <p class="text-muted">
+                    👤<strong>{{ post.user.username }}</strong> <br>{{ post.created_at|date:"F j, Y" }}
+                </p>
+
+                <!-- Likes and Comments -->
+                <div class="d-flex justify-content-between align-items-center">
+                    <p class="mb-0">
+                        <span class="badge bg-primary">{{ post.total_likes }} Likes</span>
+                        <span class="badge bg-secondary ms-2">{{ post.total_comments }} Comments</span>
+                    </p>
+                    <div>
+                        <a href="{% url 'like_post' post.id %}" class="btn btn-outline-primary btn-sm">💙</a>
+                        <a href="{% url 'add_comment' post.id %}" class="btn btn-outline-secondary btn-sm ms-2">📨</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}
